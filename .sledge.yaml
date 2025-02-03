@@ -1,0 +1,44 @@
+# ~/.sledge.yaml or specified via --config flag
+
+# Default settings for the "create" command
+create:
+  project: "uipath-amar"            
+  instance: "uipath-task-instance"   
+  region: "us-central1"             
+  dbVersion: "MYSQL_8_0"            
+  tier: "db-f1-micro"               
+
+# Default settings for the "upgrade" command
+upgrade:
+  project: "uipath-amar"           
+  instance: "uipath-task-instance"   
+  dbVersion: "MYSQL_8_0"            
+  tier: "db-g1-small"          
+
+# Default settings for the "migrate" command
+migrate:
+  sourceProject: "uipath-amar"             
+  sourceInstance: "uipath-task-instance"  
+  targetProject: "uipath-amar"             
+  targetInstance: "uipath-task-instance-migrated" 
+  targetRegion: "us-central1"               
+  backupDesc: "migrate-backup-run"       
+  pollInterval: "5s"                   
+  pollTimeout: "10m"                  
+
+# Default settings for the "delete" command
+delete:
+  project: "uipath-amar"            
+  instance: "uipath-task-instance"   
+
+# Default settings for the "backup" command
+backup:
+  project: "uipath-amar"            
+  instance: "uipath-task-instance"   
+  description: "on-demand-backup"   
+
+# Default settings for the "restore" command
+restore:
+  project: "uipath-amar"              
+  sourceInstance: "uipath-task-instance" 
+  targetInstance: "uipath-task-instance-restored"        
