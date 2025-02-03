@@ -14,67 +14,23 @@ Sledge is a CLI tool to manage GCP Cloud SQL operations. It is built with Cobra,
 ## Installation
 
 1. Clone the repository:
-    ```sh
+   
     git clone https://github.com/code4bread/sledge.git
     cd sledge
-    ```
+   
 
-2. Initialize the Go module and install dependencies:
-    ```sh
+2.  Install dependencies:
+  
     ./starter.sh
-    ```
+    
 
 3. Set up your Google Cloud credentials:
-    ```sh
-    ./export-sa.sh
-    source ~/.bash_profile
-    ```
+  
+    echo "export GOOGLE_APPLICATION_CREDENTIALS=\"/Users/next/sledge/uipath-amar-ed501cd5a389.json\"" >> ~/.bash_profile
+    
 ### Build the Project into a binary called sledge
-```sh
+
  go build -o sledge  
-```
-## Usage
-
-### Create a new Cloud SQL instance
-
-
-```sh
-sledge create --project <project-id> --instance <instance-name> --tier <tier> --region <region> --dbVersion <db-version>
-
-Sure, here's a `README.md` file for your project:
-
-```markdown
-# Sledge
-
-Sledge is a CLI tool to manage GCP Cloud SQL operations. It is built with Cobra, Viper, and GCP's Cloud SQL Admin API.
-
-## Features
-
-- Create a new Cloud SQL instance
-- Delete an existing Cloud SQL instance
-- Upgrade a Cloud SQL instance version or tier
-- Backup a Cloud SQL instance
-- Restore a Cloud SQL instance from a backup
-- Migrate a Cloud SQL instance from one region to another via backup & restore
-
-## Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/code4bread/sledge.git
-    cd sledge
-    ```
-
-2. Initialize the Go module and install dependencies:
-    ```sh
-    ./starter.sh
-    ```
-
-3. Set up your Google Cloud credentials:
-    ```sh
-    ./export-sa.sh
-    source ~/.bash_profile
-    ```
 
 ## Usage
 
@@ -116,17 +72,11 @@ sledge migrate --sourceProject <source-project> --sourceInstance <source-instanc
 
 ## Configuration
 
-You can configure default values for the commands using a 
+Setup the configuration for each of the cloudsql you wish to operate using 
 
-.sledge.yaml
+use the .sledge.yaml file in the home directory or by specifying a config file with the `--config` flag.
 
- file in your home directory or by specifying a config file with the `--config` flag.
-
-Example 
-
-.sledge.yaml
-
-:
+Below is the file used for this demo ./.sledge.yaml
 
 ```yaml
 create:
@@ -175,57 +125,46 @@ To run the tests, use the following command:
 go test ./tests/unit/...
 ```
 
-### End To End Provisioning  Demo 
+# End To End Provisioning  Demo 
 ## Creation of cloudsql instance 
 <pre>
-```sh 
 next@Amars-MacBook-Pro sledge % ./sledge create --config ./.sledge.yaml
     INFO[2025-02-03T07:21:11-08:00] Using config file:./.sledge.yaml             
     INFO[2025-02-03T07:21:13-08:00] Creation initiated for instance uipath-task-instance. Operation: 06990821-1536-4ca8-9a64-dda400000032
-```
 </pre>
-![Instance Creation] (images/uipath-task-instance.png)
+![Instance Creation](images/uipath-task-instance.png)
 
 ## Delete of cloudsql instance
 <pre>
-```sh
 next@Amars-MacBook-Pro sledge % ./sledge delete   --config ./.sledge.yaml  --instance uipath-task-instance-new
     INFO[2025-02-03T08:00:13-08:00] Using config file:./.sledge.yaml             
     INFO[2025-02-03T08:00:14-08:00] Deletion initiated for instance uipath-task-instance-new. Operation: 4bb43527-6db2-4d7b-988c-216e00000032 
-```
 </pre>
 
 ## upgrade of cloudsql instance
 <pre>
-```sh
 next@Amars-MacBook-Pro sledge % ./sledge upgrade   --config ./.sledge.yaml                              
     INFO[2025-02-03T08:33:02-08:00] Using config file:./.sledge.yaml             
     INFO[2025-02-03T08:33:03-08:00] Upgrade initiated for instance uipath-task-instance. Operation: 8e48bcfe-a962-444d-b29e-a6cd00000032 
-```
 </pre>
 ## create a new cloudsql instance 
 <pre>
-```sh
 next@Amars-MacBook-Pro sledge % ./sledge create  --config ./.sledge.yaml  --instance uipath-task-instance-new --region us-east1   
     INFO[2025-02-03T08:35:25-08:00] Using config file:./.sledge.yaml             
     INFO[2025-02-03T08:35:27-08:00] Creation initiated for instance uipath-task-instance-new. Operation: e0db21b2-bf93-43d9-80bc-661d00000026 
-```
 </pre>
 ## upgrade the new cloudsql instance 
 <pre>
-```sh
 next@Amars-MacBook-Pro sledge % ./sledge upgrade   --config ./.sledge.yaml  --instance uipath-task-instance-new                
     INFO[2025-02-03T08:58:04-08:00] Using config file:./.sledge.yaml             
     INFO[2025-02-03T08:58:05-08:00] Upgrade initiated for instance uipath-task-instance-new. Operation: 6453c2a6-6aa7-457e-bce3-b4c500000026 
-```
 </pre>
 
-![Instance Creation] (images/uipath-task-instance-new.png)
+![Instance Upgrade](images/uipath-task-instance-new.png)
 
 
-## migration of uipath-task-instance to uipath-task-instance-migrated
+# migration of uipath-task-instance to uipath-task-instance-migrated
 <pre>
-```sh
 next@Amars-MacBook-Pro sledge % ./sledge migrate --config ./.sledge.yaml
 INFO[2025-02-03T10:28:35-08:00] Using config file:./.sledge.yaml             
 INFO[2025-02-03T10:28:35-08:00] [1/4] Creating on-demand backup for source instance uipath-task-instance... 
@@ -244,16 +183,11 @@ INFO[2025-02-03T10:33:57-08:00] [3/4] Target instance created successfully.
 INFO[2025-02-03T10:33:57-08:00] [4/4] Restoring backup ID 1738607315889 from uipath-task-instance into uipath-task-instance-migrated... 
 INFO[2025-02-03T10:33:57-08:00] Restore operation started: 3381633a-3a8e-47db-9c21-5c0d00000032 
 INFO[2025-02-03T10:39:13-08:00] [4/4] Migration complete. New instance: uipath-task-instance-migrated in region: us-central1 
-
-```
 </pre>
 
-![Instance Migration] (images/uipath-task-instance-migration.png)
+![Instance Migration](images/uipath-task-instance-migration.png)
 
 
 ## License
 
 This project is licensed under the MIT License.
-```
-
-This `README.md` file provides an overview of the project, installation instructions, usage examples, configuration details, and testing instructions. Adjust the content as needed to fit your specific project requirements.
