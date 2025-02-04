@@ -39,6 +39,11 @@ Sledge is a CLI tool to manage GCP Cloud SQL operations. It is built with Cobra,
 ```sh
 sledge create --project <project-id> --instance <instance-name> --tier <tier> --region <region> --dbVersion <db-version>
 ```
+### Describe a SQL instance 
+
+```sh
+sledge describe --project <project-id> --instance <instance-name>
+```
 
 ### Delete an existing Cloud SQL instance
 
@@ -85,7 +90,9 @@ create:
   region: "us-central1"
   dbVersion: "MYSQL_8_0"
   tier: "db-f1-micro"
-
+describe:
+  project: "uipath-amar"            
+  instance: "uipath-task-instance"
 upgrade:
   project: "uipath-amar"
   instance: "uipath-task-instance"
