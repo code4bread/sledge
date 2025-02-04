@@ -7,7 +7,10 @@ create:
   region: "us-central1"             
   dbVersion: "MYSQL_8_0"            
   tier: "db-f1-micro"               
-
+# Default setttngs for the "describe" command
+describe:
+  project: "uipath-amar"            
+  instance: "uipath-task-instance"
 # Default settings for the "upgrade" command
 upgrade:
   project: "uipath-amar"           
